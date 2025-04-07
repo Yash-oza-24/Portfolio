@@ -53,7 +53,7 @@ const AboutMe = () => {
             <p className='text-gray-400 mt-2'>MERN Stack Projects</p>
           </div>
           <div className='bg-gray-800 bg-opacity-80 rounded-lg p-6 transform transition-transform hover:scale-105'>
-            <h3 className='text-2xl font-bold text-green-400'>02+</h3>
+            <h3 className='text-2xl font-bold text-green-400'>05+</h3>
             <p className='text-gray-400 mt-2'>Months Experience</p>
           </div>
         </motion.div>

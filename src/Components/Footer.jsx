@@ -13,9 +13,9 @@ const Footer = () => {
         </p>
         
         <div className='flex justify-center space-x-6 mb-6'>
-          {/* <a href='https://github.com/Yash-oza-24' target='_blank' rel='noopener noreferrer' className='text-white hover:text-green-400'>
+          <a href='https://github.com/Yash-oza-24' target='_blank' rel='noopener noreferrer' className='text-white hover:text-green-400'>
             <FaGithub size={30} />
-          </a> */}
+          </a>
           <a href='https://www.linkedin.com/in/yash-prajapati-109413258/' target='_blank' rel='noopener noreferrer' className='text-white hover:text-green-400'>
             <FaLinkedin size={30} />
           </a>
