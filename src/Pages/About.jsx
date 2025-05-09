@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaDownload } from 'react-icons/fa';
+import resumePDF from '../../public/Yash P. Resume.pdf';
 
 const AboutMe = () => {
   const { ref, inView } = useInView({
@@ -9,18 +10,27 @@ const AboutMe = () => {
     threshold: 0.1,
   });
 
-  const handleDownloadResume = () => {
-    const pdfUrl = '/public/Yash P. Resume.pdf';
-    const anchor = document.createElement('a');
-    anchor.href = pdfUrl;
-    anchor.download = 'Yash Prajapati Resume.pdf';
-    anchor.click();
+  const handleDownloadResume = async () => {
+    try {
+      const response = await fetch(resumePDF);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Yash Prajapati Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+    }
   };
 
   const stats = [
     { value: '8.05+', label: 'Aggregate CGPA' },
-    { value: '08+', label: 'MERN Stack Projects' },
-    { value: '06+', label: 'Months Experience' }
+    { value: '07+', label: 'MERN Stack Projects' },
+    { value: '05+', label: 'Months Experience' }
   ];
 
   return (
