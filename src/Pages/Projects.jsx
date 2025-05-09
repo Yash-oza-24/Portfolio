@@ -8,6 +8,7 @@ import landing from "../assets/image copy.jpg"
 import construct from "../assets/image.jpg"
 import food from "../assets/p1.jpg"
 import attendance from "../assets/image copy 4.jpg"
+import chat from "../assets/image.png"
 
 const Projects = () => {
   const { ref, inView } = useInView({
@@ -50,6 +51,11 @@ const Projects = () => {
       title: 'ClassNotes',
       description: 'Welcome to the ClassNotes, It will provide functionalities of Google-classroom, manage the class and also it provide security based exam, and give better performance to end users.',
       image: classnotes
+    },
+    {
+      title: 'Chat Application',
+      description: 'Welcome to the Chat Application, It will provide functionalities of Chat Application, which is a simple chat application that allows you to chat with your friends and family.',
+      image: chat
     }
   ];
 

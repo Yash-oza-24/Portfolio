@@ -10,7 +10,7 @@ const AboutMe = () => {
   });
 
   const handleDownloadResume = () => {
-    const pdfUrl = '/src/assets/Yash P. Resume.pdf';
+    const pdfUrl = '/Yash P. Resume.pdf';
     const anchor = document.createElement('a');
     anchor.href = pdfUrl;
     anchor.download = 'Yash Prajapati Resume.pdf';
@@ -19,8 +19,8 @@ const AboutMe = () => {
 
   const stats = [
     { value: '8.05+', label: 'Aggregate CGPA' },
-    { value: '07+', label: 'MERN Stack Projects' },
-    { value: '05+', label: 'Months Experience' }
+    { value: '08+', label: 'MERN Stack Projects' },
+    { value: '06+', label: 'Months Experience' }
   ];
 
   return (
