@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaDownload } from 'react-icons/fa';
-import resumePDF from '../../public/Yash P. Resume.pdf';
+import resumePDF from '../../public/Yash Prajapati Resume.pdf';
 
 const AboutMe = () => {
   const { ref, inView } = useInView({
