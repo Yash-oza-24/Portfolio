@@ -10,7 +10,7 @@ const AboutMe = () => {
   });
 
   const handleDownloadResume = () => {
-    const pdfUrl = '/Yash P. Resume.pdf';
+    const pdfUrl = '/public/Yash P. Resume.pdf';
     const anchor = document.createElement('a');
     anchor.href = pdfUrl;
     anchor.download = 'Yash Prajapati Resume.pdf';
