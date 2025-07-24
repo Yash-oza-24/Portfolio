@@ -36,7 +36,7 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-gray-400 mb-4"
           >
-            Computer Engineering Graduate
+            Computer Engineering Graduate Student
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
