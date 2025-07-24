@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // Navbar.jsx
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
@@ -36,11 +36,6 @@ const Navbar = () => {
       </ul>
 
       <div className="hidden md:flex items-center space-x-4">
-        <ButtonWithIcon
-          icon={<FaLinkedin />}
-          text="LinkedIn"
-          url="https://www.linkedin.com/in/yash-prajapati-007033344/"
-        />
         <ButtonWithIcon
           icon={<FaGithub />}
           text="GitHub"

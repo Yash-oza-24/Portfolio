@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaDownload } from 'react-icons/fa';
@@ -29,7 +28,7 @@ const AboutMe = () => {
 
   const stats = [
     { value: '8.05+', label: 'Aggregate CGPA' },
-    { value: '08+', label: 'MERN Stack Projects' },
+    { value: '08+', label: 'Projects' },
     { value: '06+', label: 'Months Experience' }
   ];
 
@@ -56,8 +55,8 @@ const AboutMe = () => {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Hello! I'm Yash Prajapati, a final year Computer Engineering student passionate about software development. I've gained experience in JavaScript, Python, focusing on web development with the MERN stack.
-            I thrive on continuous learning and enjoy solving problems and collaborating with teams. As I transition to the professional world, I'm eager to contribute to impactful projects and grow as a software engineer.
+            Hello! I'm Yash Prajapati, a Computer Engineering graduate passionate about software development. I've gained experience in JavaScript, Python, focusing on web development with the MERN stack.
+            I thrive on continuous learning and enjoy solving problems and collaborating with teams. As a graduate, I'm eager to contribute to impactful projects and grow as a software engineer.
           </motion.p>
         </motion.div>
 

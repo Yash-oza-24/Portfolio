@@ -1,5 +1,4 @@
 // Pages/AllSections.jsx
-import React from 'react';
 import Home from '../Pages/Home';
 import AboutMe from '../Pages/About';
 import Skills from '../Pages/Skills';
