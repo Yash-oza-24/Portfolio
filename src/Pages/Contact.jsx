@@ -1,116 +1,265 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FaPhone, FaEnvelope, FaPaperPlane } from 'react-icons/fa';
-import emailjs from 'emailjs-com';
+// src/Pages/Contact.jsx
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Send, Mail, MapPin, CheckCircle, AlertCircle } from "lucide-react";
+import emailjs from "emailjs-com";
 
 const Contact = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [focusedField, setFocusedField] = useState(null);
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-
-  const [status, setStatus] = useState('');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    emailjs
-      .send(
-        'service_yashoza', // Replace with your EmailJS Service ID
-        'template_lzrjbji', // Replace with your EmailJS Template ID
-        {
-          name: form.name,
-          email: form.email,
-          message: form.message,
-        },
-        'UdO7THJj_tE6_VH8n' // Replace with your EmailJS User ID
-      )
-      .then(
-        (response) => {
-          console.log('SUCCESS!', response.status, response.text);
-          setStatus('Message sent successfully!');
-          setForm({ name: '', email: '', message: '' });
-        },
-        (error) => {
-          console.error('FAILED...', error);
-          setStatus('Failed to send the message. Please try again later.');
-        }
+    try {
+      await emailjs.send(
+        "service_yashoza",
+        "template_lzrjbji",
+        form,
+        "UdO7THJj_tE6_VH8n"
       );
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } catch {
+      setStatus("error");
+    } finally {
+      setLoading(false);
+      setTimeout(() => setStatus(null), 5000);
+    }
   };
+
+  const inputClasses = (field) => `
+    w-full px-4 py-3.5 bg-dark-100/80 backdrop-blur-sm border rounded-xl text-white 
+    placeholder-transparent focus:outline-none transition-all duration-300
+    ${focusedField === field ? "border-accent shadow-lg shadow-accent/10" : "border-white/10 hover:border-white/20"}
+  `;
 
   return (
-    <div ref={ref} className='bg-black text-white py-12'>
-      <div className='container mx-auto px-4'>
+    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className='text-center mb-8'
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          className="grid lg:grid-cols-2 gap-16"
         >
-          <h2 className='text-3xl md:text-4xl font-bold text-green-400 mb-2'>
-            Contact Me
-          </h2>
-          <p className='text-lg md:text-xl text-gray-400'>
-            I'd love to hear from you
-          </p>
-        </motion.div>
+          {/* Left - Info */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              className="text-accent font-mono text-sm mb-4"
+            >
+              04 / Contact
+            </motion.p>
 
-        <div className='flex flex-col md:flex-col items-center justify-center gap-8'>
-          <div className='bg-gray-800 rounded-lg p-6 w-full md:w-[800px]'>
-            <h3 className='text-2xl font-bold text-green-400 mb-4'>
-              Get in Touch
-            </h3>
-            <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
-              <input
-                type='text'
-                name='name'
-                placeholder='Your Name'
-                value={form.name}
-                onChange={handleChange}
-                className='bg-gray-900 text-white rounded-lg py-2 px-4'
-                required
-              />
-              <input
-                type='email'
-                name='email'
-                placeholder='Your Email'
-                value={form.email}
-                onChange={handleChange}
-                className='bg-gray-900 text-white rounded-lg py-2 px-4'
-                required
-              />
-              <textarea
-                name='message'
-                placeholder='Your Message'
-                value={form.message}
-                onChange={handleChange}
-                className='bg-gray-900 text-white rounded-lg py-2 px-4 h-32'
-                required
-              />
-              <button
-                type='submit'
-                className='flex items-center justify-center bg-green-400 hover:bg-green-500 text-black py-2 px-4 rounded-lg'
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-display font-bold mb-6"
+            >
+              Let's work together
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 }}
+              className="text-white/50 mb-12 max-w-md leading-relaxed"
+            >
+              Have a project in mind? I'd love to hear about it. Send me a message
+              and let's create something great together.
+            </motion.p>
+
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+              className="space-y-4"
+            >
+              <motion.a
+                href="mailto:yashoza2408@gmail.com"
+                className="flex items-center gap-4 p-4 bg-dark-100/50 rounded-xl border border-white/5 hover:border-accent/30 transition-all group"
+                whileHover={{ x: 10 }}
               >
-                <FaPaperPlane className='mr-2' /> Send Message
-              </button>
-            </form>
-            {status && (
-              <p className='text-center text-green-400 mt-4'>{status}</p>
-            )}
+                <div className="p-3 bg-accent/10 rounded-xl group-hover:bg-accent/20 transition-colors">
+                  <Mail size={20} className="text-accent" />
+                </div>
+                <div>
+                  <p className="text-xs text-white/40">Email</p>
+                  <p className="text-white group-hover:text-accent transition-colors">
+                    yashoza2408@gmail.com
+                  </p>
+                </div>
+              </motion.a>
+
+              <motion.div
+                className="flex items-center gap-4 p-4 bg-dark-100/50 rounded-xl border border-white/5"
+                whileHover={{ x: 10 }}
+              >
+                <div className="p-3 bg-accent/10 rounded-xl">
+                  <MapPin size={20} className="text-accent" />
+                </div>
+                <div>
+                  <p className="text-xs text-white/40">Location</p>
+                  <p className="text-white">Surat, Gujarat, India</p>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Decorative element */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.5 }}
+              className="mt-12 hidden lg:block"
+            >
+              <div className="relative w-32 h-32">
+                <motion.div
+                  className="absolute inset-0 border-2 border-accent/30 rounded-2xl"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute inset-4 border border-white/10 rounded-xl"
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </div>
+
+          {/* Right - Form */}
+          <motion.form
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            onSubmit={handleSubmit}
+            className="space-y-5"
+          >
+            {/* Name */}
+            <div className="relative">
+              <input
+                type="text"
+                id="name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                onFocus={() => setFocusedField("name")}
+                onBlur={() => setFocusedField(null)}
+                required
+                className={inputClasses("name")}
+                placeholder="Name"
+              />
+              <label
+                htmlFor="name"
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === "name" || form.name
+                    ? "-top-2.5 text-xs text-accent bg-dark px-2"
+                    : "top-3.5 text-white/40"
+                  }`}
+              >
+                Your Name
+              </label>
+            </div>
+
+            {/* Email */}
+            <div className="relative">
+              <input
+                type="email"
+                id="email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                onFocus={() => setFocusedField("email")}
+                onBlur={() => setFocusedField(null)}
+                required
+                className={inputClasses("email")}
+                placeholder="Email"
+              />
+              <label
+                htmlFor="email"
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === "email" || form.email
+                    ? "-top-2.5 text-xs text-accent bg-dark px-2"
+                    : "top-3.5 text-white/40"
+                  }`}
+              >
+                Your Email
+              </label>
+            </div>
+
+            {/* Message */}
+            <div className="relative">
+              <textarea
+                id="message"
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                onFocus={() => setFocusedField("message")}
+                onBlur={() => setFocusedField(null)}
+                required
+                rows={5}
+                className={`${inputClasses("message")} resize-none`}
+                placeholder="Message"
+              />
+              <label
+                htmlFor="message"
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === "message" || form.message
+                    ? "-top-2.5 text-xs text-accent bg-dark px-2"
+                    : "top-3.5 text-white/40"
+                  }`}
+              >
+                Your Message
+              </label>
+            </div>
+
+            {/* Submit */}
+            <motion.button
+              type="submit"
+              disabled={loading}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent text-dark font-medium rounded-xl hover:shadow-lg hover:shadow-accent/20 disabled:opacity-60 transition-all"
+            >
+              {loading ? (
+                <motion.div
+                  className="w-5 h-5 border-2 border-dark/30 border-t-dark rounded-full"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                />
+              ) : (
+                <>
+                  <Send size={18} />
+                  Send Message
+                </>
+              )}
+            </motion.button>
+
+            {/* Status */}
+            <AnimatePresence>
+              {status && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className={`flex items-center gap-2 p-4 rounded-xl ${status === "success"
+                      ? "bg-green-500/10 text-green-400 border border-green-500/20"
+                      : "bg-red-500/10 text-red-400 border border-red-500/20"
+                    }`}
+                >
+                  {status === "success" ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
+                  {status === "success"
+                    ? "Message sent! I'll get back to you soon."
+                    : "Something went wrong. Please try again."}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.form>
+        </motion.div>
       </div>
     </div>
   );

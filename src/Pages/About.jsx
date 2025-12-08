@@ -1,15 +1,13 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FaDownload } from 'react-icons/fa';
-import resumePDF from '../../public/Yash Prajapati Resume.pdf';
+// src/Pages/About.jsx
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { Download, GraduationCap, Briefcase, Code2 } from "lucide-react";
+import resumePDF from '../../src/assets/Yash Prajapati Resume.pdf';
 
 const AboutMe = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
-  const handleDownloadResume = async () => {
+    const handleDownloadResume = async () => {
     try {
       const response = await fetch(resumePDF);
       const blob = await response.blob();
@@ -27,71 +25,176 @@ const AboutMe = () => {
   };
 
   const stats = [
-    { value: '8.05+', label: 'Aggregate CGPA' },
-    { value: '08+', label: 'Projects' },
-    { value: '06+', label: 'Months Experience' }
+    { icon: GraduationCap, value: "8.05", label: "CGPA", color: "#ff6b35" },
+    { icon: Code2, value: "8+", label: "Projects", color: "#06B6D4" },
+    { icon: Briefcase, value: "11+", label: "Months Exp", color: "#A855F7" },
   ];
 
-  return (
-    <div ref={ref} className='relative min-h-screen text-white flex items-center justify-center'>
-      <div className='container mx-auto flex flex-col items-center justify-center py-12 px-4'>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className='text-center px-8 md:px-20 max-w-4xl'
-        >
-          <motion.h2 
-            className='text-2xl md:text-4xl font-bold text-green-400 mb-6'
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            About Me
-          </motion.h2>
-          <motion.p 
-            className='text-lg md:text-xl text-gray-400 mb-8 leading-relaxed'
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Hello! I'm Yash Prajapati, a Computer Engineering graduate passionate about software development. I've gained experience in JavaScript, Python, focusing on web development with the MERN stack.
-            I thrive on continuous learning and enjoy solving problems and collaborating with teams. As a graduate, I'm eager to contribute to impactful projects and grow as a software engineer.
-          </motion.p>
-        </motion.div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
 
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
+  return (
+    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+      {/* Additional decorative elements for this section */}
+      <motion.div
+        className="absolute top-1/4 -right-20 w-40 h-40 border border-accent/10 rounded-full"
+        animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className='mt-8 w-full md:w-[1000px] grid grid-cols-1 md:grid-cols-3 gap-8 text-center'
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="grid lg:grid-cols-2 gap-16 items-start"
         >
-          {stats.map((stat, index) => (
+          {/* Left - Content */}
+          <div>
+            <motion.p
+              variants={itemVariants}
+              className="text-accent font-mono text-sm mb-4"
+            >
+              01 / About
+            </motion.p>
+
+            <motion.h2
+              variants={itemVariants}
+              className="text-3xl md:text-4xl font-display font-bold mb-8"
+            >
+              A bit about me
+            </motion.h2>
+
             <motion.div
-              key={index}
+              variants={itemVariants}
+              className="space-y-4 text-white/60 leading-relaxed"
+            >
+              <p>
+                I'm a <span className="text-white">Computer Engineering graduate</span> with
+                a genuine passion for creating things that live on the internet. My interest
+                in web development started back in college when I decided to build my first
+                project — turns out building a simple CRUD app taught me a lot about how
+                things work behind the scenes.
+              </p>
+
+              <p>
+                Fast-forward to today, I've had the privilege of working on various projects
+                ranging from <span className="text-accent">chat applications</span> to
+                <span className="text-accent"> e-commerce platforms</span>. My main focus
+                these days is building accessible, inclusive products with great user experiences.
+              </p>
+
+              <p>
+                When I'm not coding, you'll find me exploring new technologies, contributing
+                to open-source, or probably watching tech videos.
+              </p>
+            </motion.div>
+
+            {/* Tech Stack */}
+            <motion.div variants={itemVariants} className="mt-8">
+              <p className="text-sm text-white/40 mb-3">Technologies I work with:</p>
+              <div className="flex flex-wrap gap-2">
+                {["React", "Node.js", "MongoDB", "Express", "JavaScript", "Tailwind CSS"].map((tech, i) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={inView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: 0.5 + i * 0.1 }}
+                    whileHover={{ scale: 1.1, backgroundColor: "rgba(255,107,53,0.1)" }}
+                    className="px-3 py-1.5 text-sm bg-dark-100 text-white/70 rounded-lg border border-white/5 hover:border-accent/30 transition-all cursor-default"
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Download Resume */}
+            <motion.button
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-dark-100 border border-white/10 text-white rounded-full hover:border-accent/50 hover:bg-accent/5 transition-all group"
+              onClick={handleDownloadResume}
+            >
+              <Download size={18} className="group-hover:animate-bounce" />
+              Download Resume
+            </motion.button>
+          </div>
+
+          {/* Right - Stats */}
+          <motion.div variants={itemVariants} className="lg:pl-8">
+            <div className="space-y-5">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.4 + index * 0.15 }}
+                  whileHover={{ x: 10, scale: 1.02 }}
+                  className="relative group"
+                  style={{ perspective: "1000px" }}
+                >
+                  {/* Glow effect */}
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"
+                    style={{ backgroundColor: stat.color }}
+                  />
+
+                  <motion.div
+                    className="relative flex items-center gap-6 p-6 bg-dark-100/80 backdrop-blur-sm rounded-2xl border border-white/5 group-hover:border-accent/30 transition-all"
+                    whileHover={{ rotateY: 5 }}
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <motion.div
+                      className="p-4 rounded-xl"
+                      style={{ backgroundColor: `${stat.color}15` }}
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <stat.icon size={24} style={{ color: stat.color }} />
+                    </motion.div>
+                    <div>
+                      <motion.p
+                        className="text-3xl font-display font-bold text-white"
+                        initial={{ opacity: 0 }}
+                        animate={inView ? { opacity: 1 } : {}}
+                        transition={{ delay: 0.6 + index * 0.1 }}
+                      >
+                        {stat.value}
+                      </motion.p>
+                      <p className="text-white/40">{stat.label}</p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Quote */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(0, 223, 154, 0.2)" }}
-              className='bg-gray-800 bg-opacity-80 rounded-lg p-6 border border-gray-700 hover:border-green-400 transition-all duration-300'
+              transition={{ delay: 0.8 }}
+              className="mt-8 p-6 bg-accent/5 border border-accent/10 rounded-2xl relative overflow-hidden"
             >
-              <h3 className='text-2xl font-bold text-green-400'>{stat.value}</h3>
-              <p className='text-gray-400 mt-2'>{stat.label}</p>
+              <div className="absolute top-0 right-0 text-6xl text-accent/10 font-serif">"</div>
+              <p className="text-white/60 italic relative z-10">
+                "The only way to do great work is to love what you do."
+              </p>
+              <p className="text-white/40 text-sm mt-2 relative z-10">— Steve Jobs</p>
             </motion.div>
-          ))}
+          </motion.div>
         </motion.div>
-
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(0, 223, 154, 0.5)" }}
-          whileTap={{ scale: 0.95 }}
-          className='bg-green-400 hover:bg-green-500 text-black font-medium py-3 px-6 rounded-lg mt-12 flex items-center transition-all duration-300'
-          onClick={handleDownloadResume}
-        >
-          <FaDownload className='inline-block mr-2' /> Download Resume
-        </motion.button>
       </div>
     </div>
   );

@@ -1,31 +1,88 @@
-import { FaGithub, FaTwitter } from 'react-icons/fa';
+// src/Components/Footer.jsx
+import { motion } from "framer-motion";
+import { Link as ScrollLink } from "react-scroll";
+import { Github, Linkedin, Twitter, ArrowUp, Heart } from "lucide-react";
 
 const Footer = () => {
+  const socials = [
+    { icon: Github, href: "https://github.com/Yash-oza-24" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/yash-prajapati-510957380/" },
+    { icon: Twitter, href: "https://twitter.com/ytmp2407" },
+  ];
+
+  const navLinks = ["Home", "About", "Skills", "Projects", "Contact"];
+
   return (
-    <footer className='bg-black text-white py-10'>
-      <div className='container mx-auto text-center'>
-        <h2 className='text-2xl md:text-3xl font-bold mb-4 text-green-400'>
-          Yash Prajapati
-        </h2>
-        <p className='text-lg md:text-xl mb-6'>
-          MERN-Stack Developer with a passion for building web applications and a knack for solving problems.
-        </p>
-        
-        <div className='flex justify-center space-x-6 mb-6'>
-          <a href='https://github.com/Yash-oza-24' target='_blank' rel='noopener noreferrer' className='text-white hover:text-green-400'>
-            <FaGithub size={30} />
-          </a>
-          <a href='https://twitter.com/ytmp2407' target='_blank' rel='noopener noreferrer' className='text-white hover:text-green-400'>
-            <FaTwitter size={30} />
-          </a>
+    <footer className="relative py-12 border-t border-white/5">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Main Footer */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-2xl font-display font-bold"
+          >
+            yash<span className="text-accent">.</span>
+          </motion.div>
+
+          {/* Nav Links */}
+          <nav className="flex flex-wrap justify-center gap-6">
+            {navLinks.map((link) => (
+              <ScrollLink
+                key={link}
+                to={link.toLowerCase()}
+                smooth={true}
+                duration={500}
+                offset={-80}
+                className="text-white/40 hover:text-accent text-sm transition-colors cursor-pointer"
+              >
+                {link}
+              </ScrollLink>
+            ))}
+          </nav>
+
+          {/* Socials */}
+          <div className="flex items-center gap-3">
+            {socials.map((social, index) => (
+              <motion.a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                className="p-2.5 bg-dark-100 rounded-lg border border-white/5 text-white/40 hover:text-accent hover:border-accent/30 transition-all"
+              >
+                <social.icon size={18} />
+              </motion.a>
+            ))}
+          </div>
         </div>
 
-        <div className='mb-6'>
-          <p className='mb-2'>Contact: yashoza2408@gmail.com</p>
-          <p>Location: Surat,Gujarat,India</p>
-        </div>
+        {/* Bottom */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+          <p className="text-white/30 text-sm flex items-center gap-1">
+            © {new Date().getFullYear()} Yash Prajapati. Made with
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              <Heart size={14} className="text-red-500 fill-red-500" />
+            </motion.span>
+          </p>
 
-        <p>&copy; {new Date().getFullYear()} Yash Prajapati. All rights reserved.</p>
+          {/* Back to top */}
+          <ScrollLink to="home" smooth={true} duration={500}>
+            <motion.button
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.9 }}
+              className="p-3 bg-accent text-dark rounded-xl hover:shadow-lg hover:shadow-accent/20 transition-all"
+            >
+              <ArrowUp size={18} />
+            </motion.button>
+          </ScrollLink>
+        </div>
       </div>
     </footer>
   );

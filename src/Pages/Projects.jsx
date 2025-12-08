@@ -1,290 +1,340 @@
-import { motion } from "framer-motion";
+// src/Pages/Projects.jsx
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import bootstrap from "../assets/image copy 5.jpg";
-import landing from "../assets/image copy.jpg";
-import construct from "../assets/image.jpg";
+import { useState } from "react";
+import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
+
+// Import your images
+import chat from "../assets/image.png";
+import pet from "../assets/image copy 3.png";
 import food from "../assets/p1.jpg";
 import attendance from "../assets/image copy 4.jpg";
-import chat from "../assets/image.png";
 import webblock from "../assets/image copy.png";
 import monkey from "../assets/image copy 2.png";
-import pet from "../assets/image copy 3.png";
-import { useState } from "react";
+import mvc from "../assets/folder.png"
 
 const Projects = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const [selectedProject, setSelectedProject] = useState(null);
-  const handleOpenModal = (project) => setSelectedProject(project);
-  const handleCloseModal = () => setSelectedProject(null);
+  const [activeFilter, setActiveFilter] = useState("all");
 
   const projects = [
     {
-      title: "Bootstrap Web",
-      description:
-        "A simple responsive website built with Bootstrap and HTML/CSS.",
-      longDescription:
-        "This project demonstrates the use of Bootstrap's grid system, components, and utilities to create a modern, responsive website. It features a clean layout, navigation bar, and interactive elements, making it a great example for beginners learning Bootstrap.",
-      image: bootstrap,
-      website: "https://bootstrap-yp.netlify.app/",
-      github: "https://github.com/Yash-oza-24/bootstrap-website",
-      technologies: ["HTML", "CSS", "Bootstrap"],
-    },
-    {
-      title: "Landing Page",
-      description: "A modern landing page built with React and Tailwind CSS.",
-      longDescription:
-        "This landing page project showcases a clean, responsive design using React for component structure and Tailwind CSS for rapid styling. It includes smooth scrolling, animated sections, and a focus on user experience, making it ideal for product or service promotion.",
-      image: landing,
-      website: "https://landingyp.netlify.app/",
-      github: "https://github.com/Yash-oza-24/Landingpage",
-      technologies: ["React", "Tailwind CSS"],
-    },
-    {
-      title: "Construction Site",
-      description:
-        "A construction project management site built with React and Tailwind CSS.",
-      longDescription:
-        "This project provides a platform for managing construction projects efficiently. It includes features for project tracking, resource management, and team collaboration, all within a user-friendly and responsive interface.",
-      image: construct,
-      website: "https://constructionyp.netlify.app/",
-      github: "https://github.com/Yash-oza-24/Construction-site",
-      technologies: ["React", "Tailwind CSS", "JavaScript"],
-    },
-    {
-      title: "Food Fast-Food Ordering Website",
-      description:
-        "A fast-food ordering platform with a smooth user experience.",
-      longDescription:
-        "Food Fast allows users to browse an extensive menu, add favorite dishes to the cart, and complete a seamless checkout process. The site is designed for speed and usability, making online food ordering easy and efficient.",
-      image: food,
-      github: "https://github.com/Yash-oza-24/food_fast_mern",
-      technologies: ["React", "CSS", "JavaScript"],
-    },
-    {
-      title: "Attendance Management System",
-      description: "A web app for tracking and managing attendance records.",
-      longDescription:
-        "This system offers a user-friendly UI to track attendance, generate detailed reports, and manage student or employee records. It is designed for educational institutions and organizations seeking efficient attendance solutions.",
-      image: attendance,
-      github: "https://github.com/Yash-oza-24/attendance_system",
-      technologies: ["React", "Node.js", "Express", "MongoDB", "CSS"],
-    },
-    {
       title: "Chat Application",
-      description: "A real-time chat app for friends and family.",
-      longDescription:
-        "This chat application supports real-time messaging using Socket.io, user authentication, and group chats. Built with a MERN stack, it features a responsive UI and secure backend. Users can create chat rooms, send direct messages, and experience instant updates.",
+      description: "Real-time messaging app with Socket.io",
+      longDescription: "A full-stack chat application featuring real-time messaging, user authentication, and group chats. Built with MERN stack and Socket.io for seamless communication.",
       image: chat,
+      category: "fullstack",
+      featured: true,
       website: "https://chatyp.netlify.app/",
-      github: {
-        frontend: "https://github.com/Yash-oza-24/chat_frontend",
-        backend: "https://github.com/Yash-oza-24/chat_backend",
-      },
-      technologies: [
-        "React",
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "Socket.io",
-        "Tailwind CSS",
-      ],
-    },
-    {
-      title: "Web Blocker Extension",
-      description:
-        "A browser extension to block distracting websites and improve productivity.",
-      longDescription:
-        "Web Blocker is a browser extension that allows users to block access to specified websites, helping them stay focused and productive. Users can add or remove sites from the block list, set custom block messages, and enable/disable blocking as needed. Ideal for students and professionals looking to minimize distractions.",
-      image: webblock, // You can add an appropriate image asset if available
-      github: "https://github.com/Yash-oza-24/webBlock",
-      technologies: ["JavaScript", "HTML", "CSS", "Browser Extension APIs"],
-    },
-    {
-      title: "Monkey Type Script Automation",
-      description:
-        "A Node.js automation tool for Monkeytype typing tests using Puppeteer.",
-      longDescription:
-        "Monkey Type Script automates typing tests and login on Monkeytype.com using Puppeteer. It features automated login with cookie persistence, automated typing test execution, and session management. The tool is ideal for practicing typing or automating repetitive typing test tasks.",
-      image: monkey, // Add an image asset if available
-      github: "https://github.com/Yash-oza-24/Monkey_Type_Script",
-      technologies: [
-        "Node.js",
-        "JavaScript",
-        "Puppeteer",
-        "Winston",
-        "Automation",
-      ],
+      github: "https://github.com/Yash-oza-24/chat_frontend",
+      stack: ["React", "Node.js", "Socket.io", "MongoDB"],
     },
     {
       title: "Pet Adoption Platform",
-      description: "A full-stack web application for adopting and listing pets.",
-      longDescription:
-        "Pet Adoption is a MERN stack project that allows users to browse, adopt, and list pets for adoption. It features authentication, real-time updates, and a user-friendly interface for both adopters and pet owners. The project is split into frontend and backend repositories, and is deployed live for demo purposes.",
-      image: pet, // Replace with a more relevant image if available
+      description: "Connect pets with loving homes",
+      longDescription: "A platform allowing users to browse, adopt, and list pets for adoption. Features include pet profiles, adoption applications, and user dashboards.",
+      image: pet,
+      category: "fullstack",
+      featured: true,
       website: "https://petstoreyp.netlify.app/",
       github: "https://github.com/Yash-oza-24/pet-adoption",
-      technologies: [
-        "React",
-        "Node.js",
-        "Express",
-        "MongoDB",
-        "Tailwind CSS",
-      ],
+      stack: ["React", "Node.js", "Express", "MongoDB"],
     },
+    {
+      title: "Food Ordering App",
+      description: "Fast-food ordering platform",
+      longDescription: "An intuitive food ordering application with menu browsing, cart functionality, and checkout process.",
+      image: food,
+      category: "fullstack",  
+      github: "https://github.com/Yash-oza-24/food_fast_mern",
+      stack: ["React", "Node.js", "MongoDB"],
+    },
+    {
+      title: "Attendance System",
+      description: "Track and manage attendance",
+      longDescription: "A comprehensive attendance management system with detailed reports and analytics.",
+      image: attendance,
+      featured: true,
+      category: "fullstack",
+      github: "https://github.com/Yash-oza-24/attendance_system",
+      stack: ["React", "Node.js", "MongoDB"],
+    },
+    {
+      title: "Web Blocker Extension",
+      description: "Browser productivity extension",
+      longDescription: "A Chrome extension to block distracting websites and boost productivity.",
+      image: webblock,
+      category: "tools",
+      github: "https://github.com/Yash-oza-24/webBlock",
+      stack: ["JavaScript", "Chrome APIs"],
+    },
+    {
+      title: "Typing Automation",
+      description: "Puppeteer automation script",
+      longDescription: "An automated typing test script using Puppeteer for Monkeytype.com.",
+      image: monkey,
+      category: "tools",
+      github: "https://github.com/Yash-oza-24/Monkey_Type_Script",
+      stack: ["Node.js", "Puppeteer"],
+    },
+    {
+      title: "MVC Folder Structure",
+      description: "Boilerplate for Node.js projects",
+      longDescription: "A boilerplate project demonstrating a clean MVC folder structure for Node.js applications.",
+      image: mvc,
+      category: "tools",
+      website: "https://marketplace.visualstudio.com/items?itemName=YashPrajapati2408.mvcfolderstructure",
+      github: "https://github.com/Yash-oza-24/mvc-extension",
+      stack: ["Node.js", "Express"],
+    }
   ];
 
-  return (
-    <div ref={ref} className="bg-black text-white py-12">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
-        >
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-green-400 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Projects
-          </motion.h2>
-          <motion.p
-            className="text-lg md:text-xl text-gray-400"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Here are some of my recent works
-          </motion.p>
-        </motion.div>
+  const filters = ["all", "fullstack", "tools"];
+  const filteredProjects = activeFilter === "all"
+    ? projects
+    : projects.filter(p => p.category === activeFilter);
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:p-9">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
+  return (
+    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              className="text-accent font-mono text-sm mb-4"
+            >
+              03 / Work
+            </motion.p>
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden border border-gray-700 hover:border-green-400 transition-all duration-300 cursor-pointer"
-              onClick={() => handleOpenModal(project)}
+              className="text-3xl md:text-4xl font-display font-bold"
             >
-              <div className="relative overflow-hidden group">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-60 object-cover transform transition-transform duration-500 "
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold text-green-400 mb-3">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">
-                  {project.description}
-                </p>
+              Selected projects
+            </motion.h2>
+          </div>
+
+          {/* Filters */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            className="flex flex-wrap gap-2"
+          >
+            {filters.map((filter) => (
+              <motion.button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-4 py-2 text-sm rounded-full capitalize transition-all ${activeFilter === filter
+                    ? "bg-accent text-dark font-medium"
+                    : "bg-dark-100/80 text-white/60 hover:text-white border border-white/10"
+                  }`}
+              >
+                {filter}
+              </motion.button>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Projects Grid */}
+        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.article
+                key={project.title}
+                layout
+                initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ delay: index * 0.1, duration: 0.4 }}
+                whileHover={{ y: -8 }}
+                onClick={() => setSelectedProject(project)}
+                className="group cursor-pointer"
+                style={{ perspective: "1000px" }}
+              >
+                <motion.div
+                  className="relative bg-dark-100/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/5 hover:border-accent/30 transition-all duration-300"
+                  whileHover={{ rotateY: 2, rotateX: 2 }}
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  {/* Featured Badge */}
+                  {project.featured && (
+                    <motion.div
+                      className="absolute top-4 left-4 z-10 px-3 py-1 bg-accent text-dark text-xs font-semibold rounded-full"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      Featured
+                    </motion.div>
+                  )}
+
+                  {/* Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/30 to-transparent opacity-70" />
+
+                    {/* Hover overlay */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    >
+                      <motion.span
+                        className="flex items-center gap-2 px-5 py-2.5 bg-accent text-dark font-medium rounded-full"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        whileHover={{ scale: 1 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                      >
+                        View Details <ArrowUpRight size={16} />
+                      </motion.span>
+                    </motion.div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5">
+                    <h3 className="text-lg font-display font-bold mb-2 text-white group-hover:text-accent transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/50 text-sm mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Stack */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.slice(0, 3).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 text-xs bg-dark-200/80 text-white/60 rounded"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.stack.length > 3 && (
+                        <span className="px-2 py-1 text-xs bg-accent/20 text-accent rounded">
+                          +{project.stack.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+
+      {/* Project Modal - SMALLER SIZE */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark/90 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md bg-dark-100 rounded-xl border border-white/10 overflow-hidden shadow-2xl"
+              style={{ maxHeight: "70vh" }}
+            >
+              {/* Close Button */}
+              <motion.button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-3 right-3 z-20 p-1.5 bg-dark-200/80 backdrop-blur-sm rounded-full text-white/60 hover:text-white hover:bg-dark-200 transition-colors"
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <X size={16} />
+              </motion.button>
+
+              {/* Scrollable Content */}
+              <div className="overflow-y-auto" style={{ maxHeight: "70vh" }}>
+                {/* Image - Smaller aspect ratio */}
+                <div className="relative aspect-[16/9]">
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-100 via-transparent to-transparent" />
+
+                  {/* Featured badge */}
+                  {selectedProject.featured && (
+                    <div className="absolute top-3 left-3 px-2.5 py-0.5 bg-accent text-dark text-[10px] font-semibold rounded-full">
+                      Featured
+                    </div>
+                  )}
+                </div>
+
+                {/* Content - More Compact */}
+                <div className="p-5">
+                  <h3 className="text-xl font-display font-bold mb-2 text-white">
+                    {selectedProject.title}
+                  </h3>
+
+                  <p className="text-white/60 text-xs leading-relaxed mb-4">
+                    {selectedProject.longDescription}
+                  </p>
+
+                  {/* Stack - Compact */}
+                  <div className="mb-4">
+                    <p className="text-[10px] text-white/40 uppercase tracking-wider mb-1.5">Tech Stack</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {selectedProject.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 text-[10px] bg-accent/10 text-accent border border-accent/20 rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions - Compact */}
+                  <div className="flex gap-2">
+                    {selectedProject.website && (
+                      <motion.a
+                        href={selectedProject.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 bg-accent text-dark font-medium rounded-lg text-xs"
+                      >
+                        <ExternalLink size={14} />
+                        Live Demo
+                      </motion.a>
+                    )}
+                    <motion.a
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 border border-white/10 text-white rounded-lg text-xs hover:bg-white/5 transition-colors"
+                    >
+                      <Github size={14} />
+                      Code
+                    </motion.a>
+                  </div>
+                </div>
               </div>
             </motion.div>
-          ))}
-        </div>
-        {/* Modal for project details */}
-        {selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-            <div className="bg-gray-900 rounded-lg p-8 max-w-lg w-full relative">
-              <button
-                className="absolute top-2 right-2 text-gray-400 hover:text-green-400 text-2xl font-bold"
-                onClick={handleCloseModal}
-                aria-label="Close"
-              >
-                &times;
-              </button>
-              <img
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                className="w-full h-48 object-cover rounded mb-4"
-              />
-              <h3 className="text-2xl font-bold text-green-400 mb-2">
-                {selectedProject.title}
-              </h3>
-              <p className="text-gray-300 mb-2">
-                {selectedProject.description}
-              </p>
-              {/* Technologies badges */}
-              {selectedProject.technologies && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {selectedProject.technologies.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-green-800 text-green-200 px-2 py-1 rounded text-xs font-semibold"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              )}
-              {/* Long description */}
-              {selectedProject.longDescription && (
-                <p className="text-gray-400 mb-4">
-                  {selectedProject.longDescription}
-                </p>
-              )}
-              <div className="flex gap-4">
-                {/* Only show website button if website exists */}
-                {selectedProject.website && (
-                  <a
-                    href={selectedProject.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-green-400 hover:bg-green-500 text-black font-medium py-2 px-4 rounded transition-all duration-300"
-                  >
-                    Visit Website
-                  </a>
-                )}
-                {/* Show GitHub links: single or both frontend/backend */}
-                {typeof selectedProject.github === "string" ? (
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition-all duration-300"
-                  >
-                    View Code
-                  </a>
-                ) : (
-                  <>
-                    {selectedProject.github.frontend && (
-                      <a
-                        href={selectedProject.github.frontend}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition-all duration-300"
-                      >
-                        Frontend Code
-                      </a>
-                    )}
-                    {selectedProject.github.backend && (
-                      <a
-                        href={selectedProject.github.backend}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded transition-all duration-300"
-                      >
-                        Backend Code
-                      </a>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,130 +1,138 @@
-/* eslint-disable react/prop-types */
-// Navbar.jsx
-import  { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link as ScrollLink } from "react-scroll";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleNav = () => {
-    setNav(!nav);
-  };
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navItems = [
+    { to: "home", label: "Home" },
+    { to: "about", label: "About" },
+    { to: "skills", label: "Skills" },
+    { to: "projects", label: "Work" },
+    { to: "contact", label: "Contact" },
+  ];
 
   return (
-    <nav className="sticky top-0 bg-black z-50 flex justify-between items-center h-16 md:mx-2 mx-auto px-6 text-white">
-      <h1 className="text-3xl font-bold text-[#00df9a]">
-        {" "}
-        <ScrollLink
-          to="home"
-          smooth={true}
-          duration={500}
-          offset={-70}
-          className=" cursor-pointer"
-        >
-          Yash Prajapati
-        </ScrollLink>{" "}
-      </h1>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-dark/95 backdrop-blur-md shadow-lg border-b border-white/10"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex justify-between items-center h-16 md:h-20">
+          {/* Logo */}
+          <ScrollLink
+            to="home"
+            smooth={true}
+            duration={500}
+            className="cursor-pointer"
+          >
+            <span className="text-xl font-display font-bold tracking-tight">
+              yash<span className="text-accent">.</span>
+            </span>
+          </ScrollLink>
 
-      <ul className="hidden md:flex space-x-8">
-        <NavItem to="home" text="Home" />
-        <NavItem to="about" text="About" />
-        <NavItem to="skills" text="Skills" />
-        <NavItem to="projects" text="Projects" />
-        <NavItem to="contact" text="Contact" />
-      </ul>
+          {/* Desktop Nav */}
+          <ul className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <li key={item.to}>
+                <ScrollLink
+                  to={item.to}
+                  smooth={true}
+                  duration={500}
+                  offset={-80}
+                  spy={true}
+                  activeClass="text-accent"
+                  className="text-sm text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  {item.label}
+                </ScrollLink>
+              </li>
+            ))}
+          </ul>
 
-      <div className="hidden md:flex items-center space-x-4">
-        <ButtonWithIcon
-          icon={<FaGithub />}
-          text="GitHub"
-          url="https://github.com/Yash-oza-24"
-        />
+          {/* CTA Button */}
+          <ScrollLink
+            to="contact"
+            smooth={true}
+            duration={500}
+            offset={-80}
+            className="hidden md:block"
+          >
+            <button className="px-5 py-2.5 bg-accent text-dark text-sm font-medium rounded-full hover:bg-accent/90 transition-colors">
+              Let's Talk
+            </button>
+          </ScrollLink>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-white/60 hover:text-white transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
-      <div className="md:hidden">
-        <button onClick={handleNav} className="text-[#00df9a]">
-          {nav ? <AiOutlineClose size={24} /> : <AiOutlineMenu size={24} />}
-        </button>
-      </div>
-
-      <div
-        className={
-          nav
-            ? "fixed top-16 left-0 right-0 bottom-0 z-50 flex flex-col items-center bg-black text-white"
-            : "hidden"
-        }
-      >
-        <div className="w-full py-1 px-2 flex justify-end"></div>
-        <ul className="flex flex-col items-center list-none space-y-2 max-w-xs mx-auto">
-          <NavItemMobile to="home" text="Home" handleNav={handleNav} />
-          <NavItemMobile to="about" text="About" handleNav={handleNav} />
-          <NavItemMobile to="skills" text="Skills" handleNav={handleNav} />
-          <NavItemMobile to="projects" text="Projects" handleNav={handleNav} />
-          <NavItemMobile to="contact" text="Contact" handleNav={handleNav} />
-
-          <ButtonWithIcon
-            icon={<FaLinkedin />}
-            text="LinkedIn"
-            url="https://www.linkedin.com/in/yash-prajapati-109413258/"
-            handleNav={handleNav}
-          />
-          <ButtonWithIcon
-            icon={<FaGithub />}
-            text="GitHub"
-            url="https://github.com/Yash-oza-24"
-            handleNav={handleNav}
-          />
-        </ul>
-      </div>
-    </nav>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-dark/95 backdrop-blur-md border-t border-white/10"
+          >
+            <div className="px-6 py-4 space-y-1">
+              {navItems.map((item) => (
+                <ScrollLink
+                  key={item.to}
+                  to={item.to}
+                  smooth={true}
+                  duration={500}
+                  offset={-80}
+                  onClick={() => setIsOpen(false)}
+                  spy={true}
+                  activeClass="text-accent"
+                  className="block text-white/60 hover:text-white transition-colors cursor-pointer py-3"
+                >
+                  {item.label}
+                </ScrollLink>
+              ))}
+              <ScrollLink
+                to="contact"
+                smooth={true}
+                duration={500}
+                offset={-80}
+                onClick={() => setIsOpen(false)}
+                className="block pt-4"
+              >
+                <button className="w-full px-5 py-2.5 bg-accent text-dark text-sm font-medium rounded-full hover:bg-accent/90 transition-colors">
+                  Let's Talk
+                </button>
+              </ScrollLink>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
-
-const NavItem = ({ to, text }) => (
-  <li className="hover:text-[#00df9a] transition-colors duration-300">
-    <ScrollLink
-      to={to}
-      smooth={true}
-      duration={500}
-      offset={-70}
-      className="cursor-pointer"
-      activeClass="text-[#00df9a]"
-    >
-      {text}
-    </ScrollLink>
-  </li>
-);
-
-const NavItemMobile = ({ to, text, handleNav }) => (
-  <li className="p-4 hover:text-[#00df9a] cursor-pointer duration-300">
-    <ScrollLink
-      to={to}
-      smooth={true}
-      duration={500}
-      offset={-70}
-      className="cursor-pointer"
-      onClick={handleNav}
-    >
-      {text}
-    </ScrollLink>
-  </li>
-);
-
-const ButtonWithIcon = ({ icon, text, url, handleNav }) => (
-  <li className="p-4 hover:text-[#00df9a] cursor-pointer list-none duration-300">
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center"
-      onClick={handleNav}
-    >
-      <span className="mr-2">{icon}</span>
-      {text}
-    </a>
-  </li>
-);
 
 export default Navbar;

@@ -1,149 +1,241 @@
-import { useState } from "react";
+// src/Pages/Skills.jsx
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Disclosure } from "@headlessui/react";
-import { FaChevronUp, FaCode, FaServer } from "react-icons/fa";
+import { useState } from "react";
+import {
+  SiReact, SiNodedotjs, SiMongodb, SiExpress, SiJavascript,
+  SiTailwindcss, SiPython, SiHtml5, SiCss3, SiBootstrap,
+  SiSocketdotio, SiGit
+} from "react-icons/si";
 
 const Skills = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const handleToggle = (index) => {
-    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const skillCategories = [
     {
-      title: "Programming Languages",
-      icon: <FaCode />,
+      title: "Frontend",
       skills: [
-        { name: "Python", percentage: 70 },
-        { name: "JavaScript", percentage: 90 },
+        { name: "React", icon: SiReact, color: "#61DAFB", level: 90 },
+        { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", level: 88 },
+        { name: "HTML5", icon: SiHtml5, color: "#E34F26", level: 95 },
+        { name: "CSS3", icon: SiCss3, color: "#1572B6", level: 90 },
+        { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4", level: 85 },
+        { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3", level: 80 },
       ],
     },
     {
-      title: "Technologies",
-      icon: <FaServer />,
+      title: "Backend",
       skills: [
-        { name: "HTML", percentage: 90 },
-        { name: "CSS", percentage: 85 },
-        { name: "Bootstrap", percentage: 80 },
-        { name: "Tailwind CSS", percentage: 85 },
-        { name: "React.js", percentage: 90 },
-        { name: "Node.js", percentage: 80 },
-        { name: "Express", percentage: 75 },
-        { name: "MongoDB", percentage: 75 },
-        { name: "Socket.io", percentage: 70 },
-        { name: "Puppeteer", percentage: 65 },
+        { name: "Node.js", icon: SiNodedotjs, color: "#339933", level: 82 },
+        { name: "Express", icon: SiExpress, color: "#ffffff", level: 80 },
+        { name: "MongoDB", icon: SiMongodb, color: "#47A248", level: 78 },
+        { name: "Socket.io", icon: SiSocketdotio, color: "#ffffff", level: 70 },
+      ],
+    },
+    {
+      title: "Tools & Others",
+      skills: [
+        { name: "Git", icon: SiGit, color: "#F05032", level: 85 },
+        { name: "Python", icon: SiPython, color: "#3776AB", level: 65 },
       ],
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      rotateX: -15,
+    },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    }),
+  };
+
   return (
-    <div ref={ref} className="bg-black text-white py-12 md:mt-40 md:mb-44">
-      <div className="container mx-auto px-4">
+    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="mb-16"
         >
+          <motion.p
+            className="text-accent font-mono text-sm mb-4"
+            initial={{ opacity: 0, x: -20 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+          >
+            02 / Skills
+          </motion.p>
           <motion.h2
-            className="text-3xl md:text-4xl font-bold text-green-400 mb-4"
+            className="text-3xl md:text-4xl font-display font-bold mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ delay: 0.1 }}
           >
-            Skills
+            My toolkit
           </motion.h2>
           <motion.p
-            className="text-lg md:text-xl text-gray-400"
+            className="text-white/50 max-w-md"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ delay: 0.2 }}
           >
-            My technical proficiency
+            Technologies and tools I use to bring products to life.
           </motion.p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-1 md:w-3/4 md:mx-auto gap-6">
-          {skillCategories.map((category, index) => (
+        {/* Skills by Category */}
+        <div className="space-y-16">
+          {skillCategories.map((category, catIndex) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={category.title}
+              initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
+              transition={{ delay: 0.2 + catIndex * 0.1 }}
             >
-              <Disclosure
-                open={openIndex === index}
-                onClick={() => handleToggle(index)}
+              <h3 className="text-xl font-display font-semibold text-white/80 mb-6 flex items-center gap-3">
+                <span className="w-8 h-[2px] bg-accent" />
+                {category.title}
+              </h3>
+
+              <motion.div
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+                variants={containerVariants}
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
               >
-                {({ open }) => (
-                  <div className="bg-gray-800 rounded-lg border border-gray-700 hover:border-green-400 transition-all duration-300">
-                    <Disclosure.Button className="flex justify-between w-full px-6 py-4 text-lg font-semibold hover:bg-gray-700/50 transition-colors duration-300">
-                      <div className="flex items-center">
-                        <span className="text-2xl text-green-400 mr-3">
-                          {category.icon}
-                        </span>
-                        {category.title}
-                      </div>
+                {category.skills.map((skill, index) => {
+                  const globalIndex = catIndex * 10 + index;
+                  const isHovered = hoveredIndex === globalIndex;
+
+                  return (
+                    <motion.div
+                      key={skill.name}
+                      custom={index}
+                      variants={cardVariants}
+                      onHoverStart={() => setHoveredIndex(globalIndex)}
+                      onHoverEnd={() => setHoveredIndex(null)}
+                      whileHover={{
+                        y: -10,
+                        rotateY: 10,
+                        rotateX: 5,
+                      }}
+                      style={{ perspective: "1000px" }}
+                      className="relative group cursor-pointer"
+                    >
+                      {/* Glow effect */}
                       <motion.div
-                        animate={{ rotate: open ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
+                        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"
+                        style={{ backgroundColor: skill.color }}
+                        animate={{ opacity: isHovered ? 0.2 : 0 }}
+                      />
+
+                      {/* Card */}
+                      <motion.div
+                        className="relative p-6 bg-dark-100/80 backdrop-blur-sm rounded-2xl border border-white/5 group-hover:border-accent/30 transition-all duration-300"
+                        style={{ transformStyle: "preserve-3d" }}
+                        animate={{
+                          boxShadow: isHovered
+                            ? `0 20px 40px -20px ${skill.color}40`
+                            : "0 0 0 0 transparent",
+                        }}
                       >
-                        <FaChevronUp className="text-green-400" />
-                      </motion.div>
-                    </Disclosure.Button>
-                    <Disclosure.Panel className="px-6 pt-4 pb-6">
-                      {category.skills.map((skill, skillIndex) => (
+                        {/* Icon */}
                         <motion.div
-                          key={skillIndex}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={
-                            open ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-                          }
-                          transition={{
-                            duration: 0.5,
-                            delay: skillIndex * 0.1,
+                          className="flex justify-center mb-4"
+                          animate={{
+                            rotateY: isHovered ? 360 : 0,
+                            scale: isHovered ? 1.2 : 1,
                           }}
+                          transition={{ duration: 0.5 }}
                         >
-                          <SkillBar
-                            name={skill.name}
-                            percentage={skill.percentage}
+                          <skill.icon
+                            size={36}
+                            style={{
+                              color: isHovered ? skill.color : "rgba(255,255,255,0.4)",
+                              filter: isHovered ? `drop-shadow(0 0 10px ${skill.color})` : "none",
+                              transition: "all 0.3s ease",
+                            }}
                           />
                         </motion.div>
-                      ))}
-                    </Disclosure.Panel>
-                  </div>
-                )}
-              </Disclosure>
+
+                        {/* Name */}
+                        <h4 className="text-center text-white/70 font-medium text-sm mb-3 group-hover:text-white transition-colors">
+                          {skill.name}
+                        </h4>
+
+                        {/* Progress bar */}
+                        <div className="h-1.5 bg-dark-200 rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{ backgroundColor: skill.color }}
+                            initial={{ width: 0 }}
+                            animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
+                            transition={{ duration: 1, delay: 0.5 + index * 0.1, ease: "easeOut" }}
+                          />
+                        </div>
+
+                        {/* Percentage */}
+                        <motion.p
+                          className="text-center text-xs mt-2 font-mono"
+                          style={{ color: skill.color }}
+                          initial={{ opacity: 0 }}
+                          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+                          transition={{ delay: 1 + index * 0.1 }}
+                        >
+                          {skill.level}%
+                        </motion.p>
+
+                        {/* 3D shine effect */}
+                        <motion.div
+                          className="absolute inset-0 rounded-2xl pointer-events-none"
+                          style={{
+                            background: "linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%)",
+                            opacity: isHovered ? 1 : 0,
+                            transition: "opacity 0.3s ease",
+                          }}
+                        />
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
             </motion.div>
           ))}
         </div>
+
+        {/* Floating decorative elements */}
+        <motion.div
+          className="absolute top-20 right-10 w-20 h-20 border border-accent/20 rounded-xl"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-10 w-16 h-16 border border-white/10 rounded-lg"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        />
       </div>
     </div>
   );
 };
-
-const SkillBar = ({ name, percentage }) => (
-  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 last:mb-0">
-    <span className="capitalize mb-2 md:mb-0 text-gray-300">{name}</span>
-    <span className="mb-2 md:mb-0 text-green-400 font-medium">
-      {percentage}%
-    </span>
-    <div className="bg-gray-700 h-2.5 w-full md:w-1/2 rounded-full overflow-hidden">
-      <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: `${percentage}%` }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="bg-green-400 h-full rounded-full"
-      />
-    </div>
-  </div>
-);
 
 export default Skills;
