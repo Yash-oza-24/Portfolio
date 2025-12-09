@@ -3,7 +3,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Send, Mail, MapPin, CheckCircle, AlertCircle } from "lucide-react";
-import emailjs from "emailjs-com";
 
 const Contact = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -15,17 +14,37 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setStatus(null);
+
+    const formData = {
+      access_key: "46746de3-0a9a-4000-a1f4-60b65267044e", // Get from web3forms.com
+      name: form.name,
+      email: form.email,
+      message: form.message,
+      subject: `New Portfolio Message from ${form.name}`,
+    };
 
     try {
-      await emailjs.send(
-        "service_yashoza",
-        "template_lzrjbji",
-        form,
-        "UdO7THJj_tE6_VH8n"
-      );
-      setStatus("success");
-      setForm({ name: "", email: "", message: "" });
-    } catch {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        console.log("✅ Email sent successfully");
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        throw new Error("Failed to send");
+      }
+    } catch (error) {
+      console.error("❌ Error:", error);
       setStatus("error");
     } finally {
       setLoading(false);
@@ -131,8 +150,6 @@ const Contact = () => {
                   animate={{ rotate: -360 }}
                   transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                </div>
               </div>
             </motion.div>
           </div>
@@ -160,10 +177,11 @@ const Contact = () => {
               />
               <label
                 htmlFor="name"
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === "name" || form.name
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${
+                  focusedField === "name" || form.name
                     ? "-top-2.5 text-xs text-accent bg-dark px-2"
                     : "top-3.5 text-white/40"
-                  }`}
+                }`}
               >
                 Your Name
               </label>
@@ -184,10 +202,11 @@ const Contact = () => {
               />
               <label
                 htmlFor="email"
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === "email" || form.email
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${
+                  focusedField === "email" || form.email
                     ? "-top-2.5 text-xs text-accent bg-dark px-2"
                     : "top-3.5 text-white/40"
-                  }`}
+                }`}
               >
                 Your Email
               </label>
@@ -208,10 +227,11 @@ const Contact = () => {
               />
               <label
                 htmlFor="message"
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === "message" || form.message
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${
+                  focusedField === "message" || form.message
                     ? "-top-2.5 text-xs text-accent bg-dark px-2"
                     : "top-3.5 text-white/40"
-                  }`}
+                }`}
               >
                 Your Message
               </label>
@@ -223,7 +243,7 @@ const Contact = () => {
               disabled={loading}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent text-dark font-medium rounded-xl hover:shadow-lg hover:shadow-accent/20 disabled:opacity-60 transition-all"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-accent text-dark font-medium rounded-xl hover:shadow-lg hover:shadow-accent/20 disabled:opacity-60 disabled:cursor-not-allowed transition-all"
             >
               {loading ? (
                 <motion.div
@@ -246,15 +266,22 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className={`flex items-center gap-2 p-4 rounded-xl ${status === "success"
+                  className={`flex items-center gap-2 p-4 rounded-xl ${
+                    status === "success"
                       ? "bg-green-500/10 text-green-400 border border-green-500/20"
                       : "bg-red-500/10 text-red-400 border border-red-500/20"
-                    }`}
+                  }`}
                 >
-                  {status === "success" ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
-                  {status === "success"
-                    ? "Message sent! I'll get back to you soon."
-                    : "Something went wrong. Please try again."}
+                  {status === "success" ? (
+                    <CheckCircle size={18} />
+                  ) : (
+                    <AlertCircle size={18} />
+                  )}
+                  <span className="text-sm">
+                    {status === "success"
+                      ? "Message sent! I'll get back to you soon."
+                      : "Failed to send. Please try again."}
+                  </span>
                 </motion.div>
               )}
             </AnimatePresence>

@@ -183,7 +183,7 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   <p className="text-xs text-white/40 uppercase tracking-wider">Experience</p>
-                  <p className="text-lg font-display font-bold text-white">11+ Months</p>
+                  <p className="text-lg font-display font-bold text-white">1+ Year</p>
                 </motion.div>
               </div>
             </motion.div>

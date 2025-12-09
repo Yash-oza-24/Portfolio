@@ -18,13 +18,14 @@ const Footer = () => {
         {/* Main Footer */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8">
           {/* Logo */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-2xl font-display font-bold"
-          >
-            yash<span className="text-accent">.</span>
-          </motion.div>
+         <motion.span 
+  whileHover={{ 
+    boxShadow: "0 0 20px rgba(var(--accent-rgb), 0.5)" 
+  }}
+  className="text-xl font-display font-bold tracking-tight px-4 py-2 border-2 border-accent rounded-full inline-block hover:bg-accent/10 transition-all duration-300"
+>
+  YP
+</motion.span>
 
           {/* Nav Links */}
           <nav className="flex flex-wrap justify-center gap-6">

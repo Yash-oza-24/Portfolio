@@ -27,7 +27,7 @@ const AboutMe = () => {
   const stats = [
     { icon: GraduationCap, value: "8.05", label: "CGPA", color: "#ff6b35" },
     { icon: Code2, value: "8+", label: "Projects", color: "#06B6D4" },
-    { icon: Briefcase, value: "11+", label: "Months Exp", color: "#A855F7" },
+    { icon: Briefcase, value: "1+", label: "Year Exp", color: "#A855F7" },
   ];
 
   const containerVariants = {

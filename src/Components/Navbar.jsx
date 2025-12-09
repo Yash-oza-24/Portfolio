@@ -26,24 +26,28 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-dark/95 backdrop-blur-md shadow-lg border-b border-white/10"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-16 md:h-20">
-          {/* Logo */}
+          {/* Logo with Border */}
           <ScrollLink
             to="home"
             smooth={true}
             duration={500}
             className="cursor-pointer"
           >
-            <span className="text-xl font-display font-bold tracking-tight">
-              yash<span className="text-accent">.</span>
-            </span>
+          <motion.span 
+  whileHover={{ 
+    boxShadow: "0 0 20px rgba(var(--accent-rgb), 0.5)" 
+  }}
+  className="text-xl font-display font-bold tracking-tight px-4 py-2 border-2 border-accent rounded-full inline-block hover:bg-accent/10 transition-all duration-300"
+>
+  YP
+</motion.span>
           </ScrollLink>
 
           {/* Desktop Nav */}

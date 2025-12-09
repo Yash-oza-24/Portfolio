@@ -51,12 +51,29 @@ function App() {
 
           <Navbar />
 
-          <main className="relative z-10">
-            <section id="home"><Home /></section>
-            <section id="about"><AboutMe /></section>
-            <section id="skills"><Skills /></section>
-            <section id="projects"><Projects /></section>
-            <section id="contact"><Contact /></section>
+          {/* Main content with navbar offset */}
+          <main className="relative z-10 pt-16 md:pt-20">
+            {/* Home - No extra padding needed, hero handles it */}
+            <section id="home" className="scroll-mt-16 md:scroll-mt-20">
+              <Home />
+            </section>
+
+            {/* Other sections with consistent spacing */}
+            <section id="about" className="scroll-mt-16 md:scroll-mt-20">
+              <AboutMe />
+            </section>
+
+            <section id="skills" className="scroll-mt-16 md:scroll-mt-20">
+              <Skills />
+            </section>
+
+            <section id="projects" className="scroll-mt-16 md:scroll-mt-20">
+              <Projects />
+            </section>
+
+            <section id="contact" className="scroll-mt-16 md:scroll-mt-20">
+              <Contact />
+            </section>
           </main>
 
           <Footer />

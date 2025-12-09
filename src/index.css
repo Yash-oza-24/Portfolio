@@ -3,3 +3,53 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+:root {
+  --accent-rgb: 255, 107, 53;
+  --dark-rgb: 13, 10, 8;
+}
+
+* {
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  * {
+    cursor: auto;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0a08;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 53, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 53, 0.5);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 107, 53, 0.3);
+  color: white;
+}
+
+/* Body background fallback */
+body {
+  background: #0d0a08;
+  color: white;
+}
