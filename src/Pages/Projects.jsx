@@ -3,7 +3,6 @@ import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
 
-// Import your images
 import chat from "../assets/image.png";
 import pet from "../assets/image copy 3.png";
 import food from "../assets/p1.jpg";

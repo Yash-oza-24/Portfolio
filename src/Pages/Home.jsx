@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
-import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";
+import {  Github, Linkedin, Twitter } from "lucide-react";
 import myPhoto from "../assets/Yash.jpg";
 
 const Home = () => {
@@ -36,10 +36,8 @@ const Home = () => {
           animate="visible"
           className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center"
         >
-          {/* Left Content */}
           <div className="order-2 lg:order-1">
 
-            {/* Heading */}
             <motion.h1
               variants={itemVariants}
               className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-[1.1] mb-6"
@@ -62,7 +60,6 @@ const Home = () => {
               </motion.span>
             </motion.h1>
 
-            {/* Description */}
             <motion.p
               variants={itemVariants}
               className="text-lg text-white/50 max-w-md mb-8 leading-relaxed"
@@ -72,7 +69,6 @@ const Home = () => {
               experiences with the MERN stack.
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-10">
               <ScrollLink to="projects" smooth={true} duration={500} offset={-80}>
                 <motion.button
@@ -102,7 +98,6 @@ const Home = () => {
               </ScrollLink>
             </motion.div>
 
-            {/* Socials */}
             <motion.div variants={itemVariants} className="flex gap-4">
               {socials.map((social, index) => (
                 <motion.a
@@ -123,7 +118,6 @@ const Home = () => {
             </motion.div>
           </div>
 
-          {/* Right - Image with 3D effect */}
           <motion.div
             variants={itemVariants}
             className="order-1 lg:order-2 flex mt-6 justify-center lg:justify-end"
