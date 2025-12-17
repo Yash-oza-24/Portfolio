@@ -1,4 +1,3 @@
-// src/Pages/Home.jsx
 import { motion } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
 import { ArrowDown, Github, Linkedin, Twitter } from "lucide-react";

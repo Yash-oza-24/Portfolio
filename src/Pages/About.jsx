@@ -1,4 +1,3 @@
-// src/Pages/About.jsx
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Download, GraduationCap, Briefcase, Code2 } from "lucide-react";
@@ -44,7 +43,7 @@ const AboutMe = () => {
   };
 
   return (
-    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+    <div ref={ref} className="relative py-16 md:py-24 overflow-hidden">
       {/* Additional decorative elements for this section */}
       <motion.div
         className="absolute top-1/4 -right-20 w-40 h-40 border border-accent/10 rounded-full"

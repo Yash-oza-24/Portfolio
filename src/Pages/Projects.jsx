@@ -1,4 +1,3 @@
-// src/Pages/Projects.jsx
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
@@ -96,7 +95,7 @@ const Projects = () => {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+    <div ref={ref} className="relative py-16 md:py-24 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">

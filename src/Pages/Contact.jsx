@@ -1,4 +1,3 @@
-// src/Pages/Contact.jsx
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -59,7 +58,7 @@ const Contact = () => {
   `;
 
   return (
-    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+    <div ref={ref} className="relative py-16 md:py-24 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0 }}

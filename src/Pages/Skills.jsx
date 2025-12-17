@@ -1,11 +1,14 @@
-// src/Pages/Skills.jsx
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 import {
   SiReact, SiNodedotjs, SiMongodb, SiExpress, SiJavascript,
   SiTailwindcss, SiPython, SiHtml5, SiCss3, SiBootstrap,
-  SiSocketdotio, SiGit
+  SiSocketdotio, SiGit, SiPuppeteer, 
+  SiGithub,
+  SiFirebase,
+  SiPostman,
+  SiRedux
 } from "react-icons/si";
 
 const Skills = () => {
@@ -16,30 +19,36 @@ const Skills = () => {
     {
       title: "Frontend",
       skills: [
-        { name: "React", icon: SiReact, color: "#61DAFB", level: 90 },
-        { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E", level: 88 },
-        { name: "HTML5", icon: SiHtml5, color: "#E34F26", level: 95 },
-        { name: "CSS3", icon: SiCss3, color: "#1572B6", level: 90 },
-        { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4", level: 85 },
-        { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3", level: 80 },
+        { name: "React", icon: SiReact, color: "#61DAFB" },
+        { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E"},
+        { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
+        { name: "CSS3", icon: SiCss3, color: "#1572B6" },
+        { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
+        { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
       ],
     },
     {
       title: "Backend",
       skills: [
-        { name: "Node.js", icon: SiNodedotjs, color: "#339933", level: 82 },
-        { name: "Express", icon: SiExpress, color: "#ffffff", level: 80 },
-        { name: "MongoDB", icon: SiMongodb, color: "#47A248", level: 78 },
-        { name: "Socket.io", icon: SiSocketdotio, color: "#ffffff", level: 70 },
+        { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
+        { name: "Python", icon: SiPython, color: "#3776AB" },
+        { name: "Express", icon: SiExpress, color: "#ffffff" },
+        { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
+        { name: "Socket.io", icon: SiSocketdotio, color: "#ffffff" },
+        { name: "Puppeteer", icon: SiPuppeteer, color: "#40B2A0" },
       ],
     },
-    {
-      title: "Tools & Others",
-      skills: [
-        { name: "Git", icon: SiGit, color: "#F05032", level: 85 },
-        { name: "Python", icon: SiPython, color: "#3776AB", level: 65 },
-      ],
-    },
+   {
+  title: "Tools & Others",
+  skills: [
+    { name: "Git", icon: SiGit, color: "#F05032" },
+    { name: "GitHub", icon: SiGithub, color: "#ffffff" },
+    { name: "Postman", icon: SiPostman, color: "#FF6C37" },
+    { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
+    { name: "Redux", icon: SiRedux, color: "#764ABC" },
+  ],
+}
+
   ];
 
   const containerVariants = {
@@ -69,7 +78,7 @@ const Skills = () => {
   };
 
   return (
-    <div ref={ref} className="relative py-24 md:py-32 overflow-hidden">
+    <div ref={ref} className="relative py-16 md:py-24 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
@@ -181,28 +190,6 @@ const Skills = () => {
                         <h4 className="text-center text-white/70 font-medium text-sm mb-3 group-hover:text-white transition-colors">
                           {skill.name}
                         </h4>
-
-                        {/* Progress bar */}
-                        <div className="h-1.5 bg-dark-200 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full rounded-full"
-                            style={{ backgroundColor: skill.color }}
-                            initial={{ width: 0 }}
-                            animate={inView ? { width: `${skill.level}%` } : { width: 0 }}
-                            transition={{ duration: 1, delay: 0.5 + index * 0.1, ease: "easeOut" }}
-                          />
-                        </div>
-
-                        {/* Percentage */}
-                        <motion.p
-                          className="text-center text-xs mt-2 font-mono"
-                          style={{ color: skill.color }}
-                          initial={{ opacity: 0 }}
-                          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                          transition={{ delay: 1 + index * 0.1 }}
-                        >
-                          {skill.level}%
-                        </motion.p>
 
                         {/* 3D shine effect */}
                         <motion.div
