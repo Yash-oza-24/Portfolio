@@ -112,7 +112,7 @@ const Contact = () => {
                 <div>
                   <p className="text-xs text-white/40">Email</p>
                   <p className="text-white group-hover:text-accent transition-colors">
-                    yashoza2408@gmail.com
+                    yashprajapati2407@gmail.com
                   </p>
                 </div>
               </motion.a>
