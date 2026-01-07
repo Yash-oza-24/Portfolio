@@ -160,7 +160,7 @@ const Home = () => {
                   <img
                     src={myPhoto}
                     alt="Yash Prajapati"
-                    className="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover transition-all duration-500"
                   />
 
                   {/* Overlay gradient */}
