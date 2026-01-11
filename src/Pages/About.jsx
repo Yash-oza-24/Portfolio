@@ -82,7 +82,7 @@ const AboutMe = () => {
                 I'm a <span className="text-white">Computer Engineering graduate</span> with
                 a genuine passion for creating things that live on the internet. My interest
                 in web development started back in college when I decided to build my first
-                project — turns out building a simple CRUD app taught me a lot about how
+                project turns out building a simple CRUD app taught me a lot about how
                 things work behind the scenes.
               </p>
 
