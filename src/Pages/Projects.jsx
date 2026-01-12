@@ -10,6 +10,7 @@ import attendance from "../assets/image copy 4.jpg";
 import webblock from "../assets/image copy.png";
 import monkey from "../assets/image copy 2.png";
 import mvc from "../assets/folder.png"
+import groq from "../assets/image1.png"
 
 const Projects = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -85,6 +86,16 @@ const Projects = () => {
       website: "https://marketplace.visualstudio.com/items?itemName=YashPrajapati2408.mvcfolderstructure",
       github: "https://github.com/Yash-oza-24/mvc-extension",
       stack: ["Node.js", "Express"],
+    },
+    {
+      title: "Groq Ai Clone",
+      description: "AI-powered search engine clone",
+      longDescription: "A clone of the Groq AI search engine, featuring AI-powered search capabilities and a sleek user interface.",
+      image: groq,
+      category: "fullstack",
+      github: "https://github.com/Yash-oza-24/clone_ai_fe",
+      website: "https://groqyp.netlify.app/",
+      stack: ["React", "Node.js", "Express", "MongoDB"],
     }
   ];
 
@@ -206,7 +217,7 @@ const Projects = () => {
 
                     {/* Stack */}
                     <div className="flex flex-wrap gap-2">
-                      {project.stack.slice(0, 3).map((tech) => (
+                      {project?.stack?.slice(0, 3).map((tech) => (
                         <span
                           key={tech}
                           className="px-2 py-1 text-xs bg-dark-200/80 text-white/60 rounded"
@@ -214,7 +225,7 @@ const Projects = () => {
                           {tech}
                         </span>
                       ))}
-                      {project.stack.length > 3 && (
+                      {project?.stack?.length > 3 && (
                         <span className="px-2 py-1 text-xs bg-accent/20 text-accent rounded">
                           +{project.stack.length - 3}
                         </span>

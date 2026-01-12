@@ -1,4 +1,3 @@
-// src/App.jsx
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "./Components/Navbar";
@@ -8,24 +7,14 @@ import Skills from "./Pages/Skills";
 import Projects from "./Pages/Projects";
 import Contact from "./Pages/Contact";
 import Footer from "./Components/Footer";
-import CustomCursor from "./Components/CustomCursor";
 import AnimatedBackground from "./Components/AnimatedBackground";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
@@ -42,11 +31,6 @@ function App() {
           {/* Global Animated Background */}
           <div className="fixed inset-0 z-0">
             <AnimatedBackground />
-          </div>
-
-          {/* Custom Cursor - Desktop Only */}
-          <div className="hidden md:block">
-            <CustomCursor mousePosition={mousePosition} />
           </div>
 
           <Navbar />

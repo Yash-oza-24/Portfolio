@@ -9,10 +9,6 @@
   --dark-rgb: 13, 10, 8;
 }
 
-* {
-  cursor: none;
-}
-
 @media (max-width: 768px) {
   * {
     cursor: auto;
