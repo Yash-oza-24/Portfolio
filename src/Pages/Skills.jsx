@@ -8,6 +8,7 @@ import {
   SiGithub,
   SiFirebase,
   SiPostman,
+  SiAngular,
   SiRedux
 } from "react-icons/si";
 
@@ -25,6 +26,7 @@ const Skills = () => {
         { name: "CSS3", icon: SiCss3, color: "#1572B6" },
         { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
         { name: "Bootstrap", icon: SiBootstrap, color: "#7952B3" },
+        { name: "Angular", icon: SiAngular, color: "#DD0031" },
       ],
     },
     {

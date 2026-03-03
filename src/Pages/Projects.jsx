@@ -11,6 +11,7 @@ import webblock from "../assets/image copy.png";
 import monkey from "../assets/image copy 2.png";
 import mvc from "../assets/folder.png"
 import groq from "../assets/image1.png"
+import weather from "../assets/image copy 5.png"
 
 const Projects = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -96,10 +97,20 @@ const Projects = () => {
       github: "https://github.com/Yash-oza-24/clone_ai_fe",
       website: "https://groqyp.netlify.app/",
       stack: ["React", "Node.js", "Express", "MongoDB"],
+    },
+    {
+      title: "Weather App",
+      description: "Weather app with real-time data",
+      longDescription: "A weather app with real-time data, featuring a sleek user interface and a responsive design.",
+      image: weather,
+      category: "other",
+      github: "https://github.com/Yash-oza-24/weatherapp-angular",
+      website: "https://weatheryyp.netlify.app/",
+      stack: ["Angular"],
     }
   ];
 
-  const filters = ["all", "fullstack", "tools"];
+  const filters = ["all", "fullstack", "tools", "other"];
   const filteredProjects = activeFilter === "all"
     ? projects
     : projects.filter(p => p.category === activeFilter);
